@@ -43,22 +43,39 @@ class _FullscreenPlayerState extends State<FullscreenPlayer> {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: _controller.value.aspectRatio,
-      child:
-          _controller.value.isInitialized
-              ? Stack(
-                alignment: Alignment.bottomCenter,
-                children: <Widget>[
-                  VideoPlayer(_controller),
-                  // _ControlsOverlay(controller: _controller),
-                  VideoProgressIndicator(_controller, allowScrubbing: true),
-                ],
-              )
-              : Center(
-                child: Text(
-                  'HOLA MUNDO DATA',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+
+        children: <Widget>[
+          if (_controller.value.isInitialized) ...[
+            VideoPlayer(_controller),
+            VideoProgressIndicator(_controller, allowScrubbing: true),
+          ],
+
+          Positioned(
+            bottom: 50,
+            left: 20,
+            child: _VideoCaption(caption: widget.caption),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _VideoCaption extends StatelessWidget {
+  final String caption;
+
+  const _VideoCaption({required this.caption});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final titleStyle = Theme.of(context).textTheme.titleLarge;
+
+    return SizedBox(
+      width: size.width * .6,
+      child: Text(caption, maxLines: 2, style: titleStyle),
     );
   }
 }

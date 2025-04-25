@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tik_tok/domain/entities/video_post.dart';
 import 'package:tik_tok/presentation/widgets/shared/video_buttons.dart';
 import 'package:tik_tok/presentation/widgets/video/fullscreen_player.dart';
+import 'package:tik_tok/presentation/widgets/video/video_background.dart';
 
 class VideoScrollableView extends StatelessWidget {
   final List<VideoPost> videos;
@@ -25,6 +26,7 @@ class VideoScrollableView extends StatelessWidget {
                 caption: videoPost.caption,
               ),
             ),
+            VideoBackground(),
             Positioned(
               bottom: 40,
               right: 20,
